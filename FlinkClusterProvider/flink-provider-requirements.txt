@@ -1,0 +1,16 @@
+Functional Requirements
+** Java **
+- Login/Signup
+- Create Application
+- Deliver metrics + logs + traces
+- Schedule Savepoints
+
+** Cluster **
+- Create Cluster
+- Allow Fast create
+-
+
+** Deployments **
+- Auto Update when code is pushed
+- Rollback on metrics
+- Zero/Downtime updates
