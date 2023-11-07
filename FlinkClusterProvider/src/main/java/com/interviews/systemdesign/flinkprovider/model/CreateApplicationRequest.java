@@ -16,6 +16,5 @@ public class CreateApplicationRequest implements Serializable {
 
     private String name;
     private Integer parallelism;
-    // Ignored for V0
     private String jarLocation;
 }

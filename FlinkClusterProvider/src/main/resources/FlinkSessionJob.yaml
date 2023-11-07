@@ -1,0 +1,10 @@
+apiVersion: flink.apache.org/v1beta1
+kind: FlinkSessionJob
+metadata:
+  name: {{ name }}
+spec:
+  deploymentName: {{ deployment }}
+  job:
+    jarURI: {{ jarLocation }}
+    parallelism: {{ parallelism }}
+    upgradeMode: stateless

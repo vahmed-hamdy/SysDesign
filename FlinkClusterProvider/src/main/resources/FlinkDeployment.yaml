@@ -19,7 +19,7 @@
 apiVersion: flink.apache.org/v1beta1
 kind: FlinkDeployment
 metadata:
-  name: basic-example
+  name: {{name}}
 spec:
   image: flink:1.17
   flinkVersion: v1_17
@@ -34,7 +34,3 @@ spec:
     resource:
       memory: "2048m"
       cpu: 1
-  job:
-    jarURI: {{jarLocation}}
-    parallelism: {{parallelism}}
-    upgradeMode: stateless
