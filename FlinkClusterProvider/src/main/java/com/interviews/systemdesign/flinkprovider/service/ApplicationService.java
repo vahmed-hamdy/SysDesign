@@ -12,6 +12,7 @@ import com.interviews.systemdesign.flinkprovider.repository.ApplicationRepo;
 import com.interviews.systemdesign.flinkprovider.repository.ClusterRepo;
 import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.client.Config;
+import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import lombok.RequiredArgsConstructor;
@@ -61,9 +62,10 @@ public class ApplicationService {
                 .name(request.getName())
                 .parallelism(request.getParallelism())
                 .jarLocation(request.getJarLocation())
+                .cluster(clusterToDeploy.getId())
                 .build();
 
-        startApplication(request, clusterToDeploy);
+        startApplication(application, clusterToDeploy);
         clusterService.allocateClusterToApp(clusterToDeploy, application.getName());
 
         application.setStatus(ApplicationStatus.STARTING);
@@ -73,7 +75,7 @@ public class ApplicationService {
 
     private void deleteApplication(Application application, Cluster cluster) throws IOException {
         MustacheFactory mf = new DefaultMustacheFactory();
-        Mustache m = mf.compile("FlinkDeployment.yaml");
+        Mustache m = mf.compile("FlinkSessionJob.yaml");
         StringWriter writer = new StringWriter();
         m.execute(writer,  application).flush();
 
@@ -83,11 +85,11 @@ public class ApplicationService {
             client.resourceList(loadedDep).delete();
         }
     }
-    private void startApplication(CreateApplicationRequest request, Cluster cluster) throws IOException {
+    private void startApplication(Application application, Cluster cluster) throws IOException {
         MustacheFactory mf = new DefaultMustacheFactory();
-        Mustache m = mf.compile("FlinkDeployment.yaml");
+        Mustache m = mf.compile("FlinkSessionJob.yaml");
         StringWriter writer = new StringWriter();
-        m.execute(writer,  request).flush();
+        m.execute(writer,  application).flush();
 
         try(KubernetesClient client = createClient(cluster))
         {
@@ -98,6 +100,7 @@ public class ApplicationService {
 
     private KubernetesClient createClient(final Cluster cluster) {
         return client != null ? client : (client = new KubernetesClientBuilder()
+                .withConfig(new ConfigBuilder().withConnectionTimeout(3000).build())
 //                .withConfig(Config.empty())
                 .build());
     }
