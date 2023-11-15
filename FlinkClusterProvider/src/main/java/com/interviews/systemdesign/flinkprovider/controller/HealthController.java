@@ -1,5 +1,6 @@
 package com.interviews.systemdesign.flinkprovider.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,9 +9,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/healthz")
+@Slf4j
 public class HealthController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public void announceHealthy(){}
+    public void announceHealthy(){
+        log.debug("I am fine");
+    }
 }
