@@ -1,0 +1,20 @@
+services:
+  web:
+    build: .
+    image: "flinkprovider:latest"
+    networks:
+      - my-shared-network
+    ports:
+      - "8015:8015"
+    depends_on:
+      - mongo
+  mongo:
+    image: "mongo:latest"
+    networks:
+      - my-shared-network
+    ports:
+      - "27017:27017"
+
+networks:
+  my-shared-network:
+    driver: bridge

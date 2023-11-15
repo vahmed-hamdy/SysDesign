@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+{{/*  name: {{ include "flinkProviderChart.fullname" . }}*/}}
+  name: "mongo"
+  labels:
+    {{- include "flinkProviderChart.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.mongo.network.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "flinkProviderChart.selectorLabels" . | nindent 4 }}
