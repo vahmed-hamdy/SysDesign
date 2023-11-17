@@ -108,5 +108,17 @@
             </plugin>
         </plugins>
     </build>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>libs-release</name>
+            <url>https://chalixar.jfrog.io/artifactory/libs-release</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>libs-snapshots</name>
+            <url>https://chalixar.jfrog.io/artifactory/libs-snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
