@@ -1,10 +1,10 @@
 version: 1
 type: maven
 resolver:
-    serverId: central
+    serverId: chalixar
     snapshotRepo: libs-snapshot
     releaseRepo: libs-release
 deployer:
-    serverId: snapshots
+    serverId: chalixar
     snapshotRepo: libs-snapshot
     releaseRepo: libs-release
