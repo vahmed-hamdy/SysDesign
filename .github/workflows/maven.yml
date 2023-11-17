@@ -32,7 +32,7 @@ jobs:
         servers: '[{"id": "chalixar", "username": "${{ secrets.JF_USER }}", "password": "${{ secrets.JF_PASSWORD }}"}]'
             
   build:
-
+    needs: setup_jfrog
     runs-on: ubuntu-latest
 
     steps:
