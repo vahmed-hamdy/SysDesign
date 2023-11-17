@@ -15,6 +15,17 @@ on:
     branches: [ "master" ]
 
 jobs:
+  setup_jfrog:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Setup Jfrog
+    - uses: jfrog/setup-jfrog-cli@v3
+      env:
+        JF_URL: ${{ secrets.JF_URL }}
+        JF_USER: ${{ secrets.JF_USER }}
+        JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
+    - name: pinging Jfrog
+      run: jf rt ping
   build:
 
     runs-on: ubuntu-latest
