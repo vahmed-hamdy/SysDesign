@@ -15,21 +15,21 @@ on:
     branches: [ "master" ]
 
 jobs:
-  setup_jfrog:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Setup Jfrog
-      uses: jfrog/setup-jfrog-cli@v3
-      env:
-        JF_URL: ${{ secrets.JF_URL }}
-        JF_USER: ${{ secrets.JF_USER }}
-        JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
-    - name: pinging Jfrog
-      run: jf rt ping
-    - name: add maven server 
-      uses: s4u/maven-settings-action@v2.8.0
-      with:
-        servers: '[{"id": "chalixar", "username": "${{ secrets.JF_USER }}", "password": "${{ secrets.JF_PASSWORD }}"}]'
+  # setup_jfrog:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Setup Jfrog
+  #     uses: jfrog/setup-jfrog-cli@v3
+  #     env:
+  #       JF_URL: ${{ secrets.JF_URL }}
+  #       JF_USER: ${{ secrets.JF_USER }}
+  #       JF_PASSWORD: ${{ secrets.JF_PASSWORD }}
+  #   - name: pinging Jfrog
+  #     run: jf rt ping
+  #   - name: add maven server 
+  #     uses: s4u/maven-settings-action@v2.8.0
+  #     with:
+  #       servers: '[{"id": "chalixar", "username": "${{ secrets.JF_USER }}", "password": "${{ secrets.JF_PASSWORD }}"}]'
             
   build:
     # needs: setup_jfrog
@@ -57,7 +57,7 @@ jobs:
       with:
         servers: '[{"id": "chalixar", "username": "${{ secrets.JF_USER }}", "password": "${{ secrets.JF_PASSWORD }}"}]'
     - name: Deloy with Maven
-      run: mvn deploy --file pom.xml
+      run: jf mvn deploy --file pom.xml
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
     - name: Update dependency graph
