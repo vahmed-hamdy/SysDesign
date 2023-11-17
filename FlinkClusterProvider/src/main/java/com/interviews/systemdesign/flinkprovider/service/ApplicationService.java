@@ -5,18 +5,15 @@ import com.github.mustachejava.Mustache;
 import com.github.mustachejava.MustacheFactory;
 import com.interviews.systemdesign.flinkprovider.exception.ApplicationNotExistsException;
 import com.interviews.systemdesign.flinkprovider.model.Application;
+import com.interviews.systemdesign.flinkprovider.model.ApplicationStatus;
 import com.interviews.systemdesign.flinkprovider.model.Cluster;
 import com.interviews.systemdesign.flinkprovider.model.CreateApplicationRequest;
-import com.interviews.systemdesign.flinkprovider.model.ApplicationStatus;
 import com.interviews.systemdesign.flinkprovider.repository.ApplicationRepo;
-import com.interviews.systemdesign.flinkprovider.repository.ClusterRepo;
 import io.fabric8.kubernetes.api.model.HasMetadata;
-import io.fabric8.kubernetes.client.Config;
 import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -27,7 +24,6 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class ApplicationService {
-//    private static String FLINK_DEPLOYMENT_FILE = "local:///opt/flink/examples/streaming/StateMachineExample.jar";
 
     private KubernetesClient client;
 
