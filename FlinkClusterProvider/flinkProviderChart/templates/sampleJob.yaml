@@ -28,7 +28,7 @@ spec:
             - |
               echo "scripts in /hello-world-scripts"
               ls -lh /hello-world-scripts
-              echo "copy scripts to /tmp"
+              echo "A7a bn2olak copy scripts to /tmp"
               cp /hello-world-scripts/*.sh /tmp
               echo "apply 'chmod +x' to /tmp/*.sh"
               chmod +x /tmp/*.sh
