@@ -14,6 +14,7 @@ import io.fabric8.kubernetes.api.model.HasMetadata;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,7 @@ import java.io.StringWriter;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ClusterService {
@@ -36,20 +38,21 @@ public class ClusterService {
         Mustache m = mf.compile("FlinkDeployment.yaml");
         StringWriter writer = new StringWriter();
         m.execute(writer,  request).flush();
+        log.info("Created some stuff for " + request.toString());
 
-        Cluster cluster = Cluster.builder()
-                .id(request.getId())
-                .cluster(request.getCluster())
-                .namespace(request.getNamespace())
-                .status(ClusterStatus.AVAILABLE)
-                .build();
+//        Cluster cluster = Cluster.builder()
+//                .id(request.getId())
+//                .cluster(request.getCluster())
+//                .namespace(request.getNamespace())
+//                .status(ClusterStatus.AVAILABLE)
+//                .build();
 
-        try(KubernetesClient client = createClient(cluster))
-        {
-            List<HasMetadata> loadedDep = client.load(new StringBufferInputStream(writer.toString())).get();
-            client.resourceList(loadedDep).createOrReplace();
-            clusterRepo.save(cluster);
-        }
+//        try(KubernetesClient client = createClient(cluster))
+//        {
+//            List<HasMetadata> loadedDep = client.load(new StringBufferInputStream(writer.toString())).get();
+//            client.resourceList(loadedDep).createOrReplace();
+//            clusterRepo.save(cluster);
+//        }
     }
 
     public Cluster allocateCluster() {

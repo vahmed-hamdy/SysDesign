@@ -4,6 +4,7 @@ import com.mongodb.lang.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @Builder
+@ToString
 public class Application {
     @Id
     private final String id;

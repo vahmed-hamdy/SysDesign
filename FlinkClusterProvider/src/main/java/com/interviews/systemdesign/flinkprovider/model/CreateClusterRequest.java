@@ -2,9 +2,11 @@ package com.interviews.systemdesign.flinkprovider.model;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 @Builder
 @Data
+@ToString
 public class CreateClusterRequest {
     private String id;
 
@@ -13,4 +15,5 @@ public class CreateClusterRequest {
 
     @Builder.Default
     private String namespace = "default";
+
 }

@@ -14,6 +14,7 @@ import io.fabric8.kubernetes.client.ConfigBuilder;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.kubernetes.client.KubernetesClientBuilder;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.io.StringBufferInputStream;
 import java.io.StringWriter;
 import java.util.List;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ApplicationService {
@@ -75,23 +77,25 @@ public class ApplicationService {
         StringWriter writer = new StringWriter();
         m.execute(writer,  application).flush();
 
-        try(KubernetesClient client = createClient(cluster))
-        {
-            List<HasMetadata> loadedDep = client.load(new StringBufferInputStream(writer.toString())).get();
-            client.resourceList(loadedDep).delete();
-        }
+//        try(KubernetesClient client = createClient(cluster))
+//        {
+//            List<HasMetadata> loadedDep = client.load(new StringBufferInputStream(writer.toString())).get();
+//            client.resourceList(loadedDep).delete();
+//        }
     }
     private void startApplication(Application application, Cluster cluster) throws IOException {
         MustacheFactory mf = new DefaultMustacheFactory();
         Mustache m = mf.compile("FlinkSessionJob.yaml");
         StringWriter writer = new StringWriter();
         m.execute(writer,  application).flush();
+        log.info("Creating app " + application.toString());
 
-        try(KubernetesClient client = createClient(cluster))
-        {
-            List<HasMetadata> loadedDep = client.load(new StringBufferInputStream(writer.toString())).get();
-            client.resourceList(loadedDep).createOrReplace();
-        }
+
+//        try(KubernetesClient client = createClient(cluster))
+//        {
+//            List<HasMetadata> loadedDep = client.load(new StringBufferInputStream(writer.toString())).get();
+//            client.resourceList(loadedDep).createOrReplace();
+//        }
     }
 
     private KubernetesClient createClient(final Cluster cluster) {

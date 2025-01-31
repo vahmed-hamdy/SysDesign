@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>FlinkClusterProvider</module>
+        <module>DatabaseUpdater</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
